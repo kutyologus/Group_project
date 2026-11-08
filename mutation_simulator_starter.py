@@ -118,7 +118,18 @@ def run_simulation(seq, trials, mode="any"):
     and return a dictionary of counts, e.g. {"silent": 241, "missense": 690, ...}.
     mode="substitution" uses only substitute(); mode="any" uses random_mutation()."""
     counts = {"silent": 0, "missense": 0, "nonsense": 0, "frameshift": 0}
-    # TODO
+    original_protein = translate(seq)
+    for i in range(trials):
+        if mode == "substitution":
+            mutated_seq, pos = substitute(seq)
+            kind = "substitution"
+        elif mode == "any":
+            mutated_seq, kind, pos = random_mutation(seq)
+        else:
+            raise ValueError("Invalid mutation mode")
+        mutated_protein = translate(mutated_seq)
+        result = classify(original_protein, mutated_protein, kind)
+        counts[result] += 1
     return counts
 
 
@@ -128,7 +139,17 @@ def run_simulation(seq, trials, mode="any"):
 
 def print_report(counts):
     """Print each category with its count and its percentage of all trials."""
-    # TODO
+    total = sum(counts.values())
+    print("\nMutation Results")
+    print("--------------------")
+    for category, count in counts.items():
+        percentage = count / total * 100
+        print(f"{category}: {count} ({percentage:.2f}%)")
+    print("--------------------")
+    print(f"Total trials: {total}")
+    if total == 0:
+        print("No trials were performed.")
+        return
     pass
 
 
@@ -146,7 +167,19 @@ def plot_results(counts, title="Effects of random mutations"):
 def demo_one_mutation(seq):
     """Show one mutation step by step: original DNA and protein, the mutation,
     mutated DNA and protein, and the classification."""
-    # TODO
+    # Original sequence and protein
+    original_protein = translate(seq)
+    print("\n===== MUTATION DEMO =====")
+    print("Original DNA:", seq)
+    print("Original protein:", original_protein)
+    # Perform one random mutation
+    mutated_seq, kind, pos = random_mutation(seq)
+    # Translate mutated DNA
+    mutated_protein = translate(mutated_seq)
+    # Classify the mutation
+    result = classify(original_protein, mutated_protein, kind)
+    # Show what changed
+    print("\nMutation type:", kind)
     pass
 
 
