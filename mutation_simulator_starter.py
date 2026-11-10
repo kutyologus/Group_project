@@ -174,8 +174,10 @@ def demo_one_mutation(seq):
     print("Original protein:", original_protein)
     # Perform one random mutation
     mutated_seq, kind, pos = random_mutation(seq)
+    print("Mutated DNA", mutated_seq)
     # Translate mutated DNA
     mutated_protein = translate(mutated_seq)
+    print("Mutated protein:", mutated_protein)
     # Classify the mutation
     result = classify(original_protein, mutated_protein, kind)
     # Show what changed
