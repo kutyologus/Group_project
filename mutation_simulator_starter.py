@@ -199,7 +199,7 @@ def demo_one_mutation(seq):
 # Main program - run this once everything is connected
 # ---------------------------------------------------------------------------
 
-"""if __name__ == "__main__":
+if __name__ == "__main__":
     demo_one_mutation(TEST_SEQUENCE)
 
     print("=== Substitutions only ===")
@@ -211,4 +211,4 @@ def demo_one_mutation(seq):
     all_counts = run_simulation(TEST_SEQUENCE, 1000, mode="any")
     print_report(all_counts)
 
-    plot_results(sub_counts, "Effects of 1,000 random substitutions")"""
+    plot_results(sub_counts, "Effects of 1,000 random substitutions")
